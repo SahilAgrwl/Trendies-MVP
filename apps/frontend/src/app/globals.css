@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* Override Mantine's text color variable system */
+.m_b6d8b162 {
+  --text-color: currentColor !important;
+}
+
+/* Gray colors */
+.mantine-Text-root.text-gray-50 { --text-color: #f9fafb !important; color: #f9fafb !important; }
+.mantine-Text-root.text-gray-100 { --text-color: #f3f4f6 !important; color: #f3f4f6 !important; }
+.mantine-Text-root.text-gray-200 { --text-color: #e5e7eb !important; color: #e5e7eb !important; }
+.mantine-Text-root.text-gray-300 { --text-color: #d1d5db !important; color: #d1d5db !important; }
+.mantine-Text-root.text-gray-400 { --text-color: #9ca3af !important; color: #9ca3af !important; }
+.mantine-Text-root.text-gray-500 { --text-color: #6b7280 !important; color: #6b7280 !important; }
+.mantine-Text-root.text-gray-600 { --text-color: #4b5563 !important; color: #4b5563 !important; }
+.mantine-Text-root.text-gray-700 { --text-color: #374151 !important; color: #374151 !important; }
+.mantine-Text-root.text-gray-800 { --text-color: #1f2937 !important; color: #1f2937 !important; }
+.mantine-Text-root.text-gray-900 { --text-color: #111827 !important; color: #111827 !important; }
+
+/* Red colors */
+.mantine-Text-root.text-red-500 { --text-color: #ef4444 !important; color: #ef4444 !important; }
+.mantine-Text-root.text-red-600 { --text-color: #dc2626 !important; color: #dc2626 !important; }
+.mantine-Text-root.text-red-700 { --text-color: #b91c1c !important; color: #b91c1c !important; }
+
+/* Green colors */
+.mantine-Text-root.text-green-500 { --text-color: #10b981 !important; color: #10b981 !important; }
+.mantine-Text-root.text-green-600 { --text-color: #059669 !important; color: #059669 !important; }
+.mantine-Text-root.text-green-700 { --text-color: #047857 !important; color: #047857 !important; }
+
+/* Pink colors */
+.mantine-Text-root.text-pink-500 { --text-color: #ec4899 !important; color: #ec4899 !important; }
+.mantine-Text-root.text-pink-600 { --text-color: #db2777 !important; color: #db2777 !important; }
+.mantine-Text-root.text-pink-700 { --text-color: #be185d !important; color: #be185d !important; }
+
+/* Basic colors */
+.mantine-Text-root.text-black { --text-color: #000000 !important; color: #000000 !important; }
+.mantine-Text-root.text-white { --text-color: #ffffff !important; color: #ffffff !important; }
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
