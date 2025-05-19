@@ -27,7 +27,7 @@ async function main() {
       price: 259.99,
       category: 'Shirts',
       description: 'Authentic vintage Gucci shirt in excellent condition. Size M.',
-      imageUrl: 'https://images.unsplash.com/photo-1589902860314-e910697dea15?q=80&w=500',
+      imageUrl: 'https://images.unsplash.com/photo-1594201638839-e36ddd34822d?q=80&w=500',
       sellerName: 'Jane Smith',
       sellerEmail: 'jane@example.com',
       status: 'validated',
