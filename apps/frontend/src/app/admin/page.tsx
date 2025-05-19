@@ -17,9 +17,32 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState(0);
   const [pages, setPages] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminEmail, setAdminEmail] = useState('');
   
   const currentPage = Number(searchParams.get('page') || '1');
   const statusFilter = searchParams.get('status') as ProductStatus || undefined;
+  
+  // Check if the user is authenticated as admin
+  useEffect(() => {
+    const checkAuth = () => {
+      // Check sessionStorage for admin auth
+      const adminStatus = sessionStorage.getItem('isAdmin');
+      const email = sessionStorage.getItem('adminEmail');
+      
+      if (adminStatus !== 'true') {
+        // Redirect to login if not authenticated
+        router.push('/admin/login');
+      } else {
+        setIsAdmin(true);
+        if (email) {
+          setAdminEmail(email);
+        }
+      }
+    };
+    
+    checkAuth();
+  }, [router]);
   
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -69,8 +92,10 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, [currentPage, statusFilter]);
+    if (isAdmin) {
+      fetchProducts();
+    }
+  }, [currentPage, statusFilter, isAdmin]);
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams);
@@ -90,11 +115,42 @@ export default function AdminPage() {
     
     router.push(`/admin?${params.toString()}`);
   };
+  
+  const handleLogout = () => {
+    sessionStorage.removeItem('isAdmin');
+    sessionStorage.removeItem('adminEmail');
+    router.push('/admin/login');
+  };
+
+  // If not authenticated, show loading while redirect happens
+  if (!isAdmin) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-600 rounded-full animate-spin mx-auto"></div>
+          <p className="mt-4 text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="mb-6 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+        <div className="flex items-center gap-4">
+          <Text size="sm" className="text-gray-600">
+            Logged in as: {adminEmail}
+          </Text>
+          <Button 
+            variant="outline" 
+            color="gray" 
+            size="xs"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </div>
       </div>
       
       <Paper className="mb-6 p-4">

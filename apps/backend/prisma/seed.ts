@@ -3,6 +3,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  // Delete existing products to prevent duplicates
+  await prisma.order.deleteMany({});
+  await prisma.product.deleteMany({});
+  console.log('Deleted existing products');
+
   // Seed categories
   const categories = [
     { name: 'Shirts' },
@@ -17,6 +22,21 @@ async function main() {
       where: { name: category.name },
       update: {},
       create: category,
+    });
+  }
+
+  // Seed admin users
+  const adminUsers = [
+    { email: 'sahilagrawal4556@gmail.com', password: 'trendies296' },
+    { email: 'hellocodesahil@gmail.com', password: 'trendies296' },
+    { email: 'smail.bensaad@trendiesmaroc.com', password: 'trendies296' },
+  ];
+
+  for (const admin of adminUsers) {
+    await (prisma as any).admin.upsert({
+      where: { email: admin.email },
+      update: { password: admin.password },
+      create: admin,
     });
   }
 
